@@ -9,6 +9,9 @@ public class EnemyStateMachine : MonoBehaviour
     public float visionAngle = 50;
     public float maxVisionDistance = 50;
 
+    public Quaternion angle;
+    public float cronometro;
+
     public Color visionColor;
     public LayerMask mask;
 
@@ -42,6 +45,18 @@ public class EnemyStateMachine : MonoBehaviour
                 {
                     lastKnownPlayerPosition = player.position;
                     currentState = EnemyState.Chasing;
+                }
+                else
+                {
+                    cronometro += Time.deltaTime;
+                    if (cronometro >= 2)
+                    {
+                        angle = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                        cronometro = 0;
+                    }
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, angle, 0.5f);
+                    transform.Translate(Vector3.forward * Time.deltaTime * speed);
+
                 }
 
                 break;
