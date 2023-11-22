@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System;
 
 public class EnemyStateMachine : MonoBehaviour
 {
@@ -51,14 +52,12 @@ public class EnemyStateMachine : MonoBehaviour
                     cronometro += Time.deltaTime;
                     if (cronometro >= 2)
                     {
-                        angle = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                        angle = Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0);
                         cronometro = 0;
                     }
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, angle, 0.5f);
                     transform.Translate(Vector3.forward * Time.deltaTime * speed);
-
                 }
-
                 break;
 
             case EnemyState.Chasing:
@@ -80,7 +79,6 @@ public class EnemyStateMachine : MonoBehaviour
                 {
                     currentState = EnemyState.Retrieving;
                 }
-
                 break;
 
             case EnemyState.Retrieving:
@@ -88,7 +86,9 @@ public class EnemyStateMachine : MonoBehaviour
 
                 transform.position = Vector3.MoveTowards(transform.position, lastKnownPlayerPosition, speed * Time.deltaTime);
 
-                if (transform.position == lastKnownPlayerPosition)
+                if (Math.Abs(transform.position.x - lastKnownPlayerPosition.x) < 0.1f &&
+                    Math.Abs(transform.position.y - lastKnownPlayerPosition.y) < 0.1f &&
+                    Math.Abs(transform.position.z - lastKnownPlayerPosition.z) < 0.1f)
                 {
                     currentState = EnemyState.Searching;
                 }
@@ -97,7 +97,10 @@ public class EnemyStateMachine : MonoBehaviour
                     lastKnownPlayerPosition = player.position;
                     currentState = EnemyState.Chasing;
                 }
+                break;
 
+            default:
+                currentState = EnemyState.Searching;
                 break;
         }
     }
@@ -126,24 +129,6 @@ public class EnemyStateMachine : MonoBehaviour
                 }
             }
         }
-
         return ret;
     }
 }
-
-#if UNITY_EDITOR
-[CustomEditor(typeof(EnemyStateMachine))]
-public class EnemyVisionSensor : Editor
-{
-    public void OnSceneGUI()
-    {
-        var ai = target as EnemyStateMachine;
-
-        Vector3 startPoint = Mathf.Cos(-ai.visionAngle * Mathf.Deg2Rad) * ai.transform.forward +
-                             Mathf.Sin(ai.visionAngle * Mathf.Deg2Rad) * (-ai.transform.right);
-
-        Handles.color = ai.visionColor;
-        Handles.DrawSolidArc(ai.transform.position, Vector3.up, startPoint, ai.visionAngle * 2f, ai.maxVisionDistance);
-    }
-}
-#endif
