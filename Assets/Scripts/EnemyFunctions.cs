@@ -13,7 +13,7 @@ public class EnemyFunctions : MonoBehaviour
     public LayerMask mask;
     public Color visionColor;
 
-    public Transform player; // Referencia al jugador
+    Transform player; // Referencia al jugador
 
     public bool PlayerDetected(Transform enemy)
     {

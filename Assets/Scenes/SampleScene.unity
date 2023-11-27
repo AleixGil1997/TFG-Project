@@ -1293,9 +1293,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6784201127443470857, guid: c67efdc4196bd2144a7f793bb05b8e82, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2491498094433144625}
-    - targetCorrespondingSourceObject: {fileID: 6784201127443470857, guid: c67efdc4196bd2144a7f793bb05b8e82, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2491498094433144633}
   m_SourcePrefab: {fileID: 100100000, guid: c67efdc4196bd2144a7f793bb05b8e82, type: 3}
 --- !u!1 &2491498094433144608 stripped
 GameObject:
@@ -1371,15 +1368,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionAngle: 50
   maxVisionDistance: 50
-  angle: {x: 0, y: 0, z: 0, w: 0}
-  cronometro: 0
-  visionColor: {r: 1, g: 0, b: 0, a: 0.105882354}
   mask:
     serializedVersion: 2
     m_Bits: 129
-  currentState: 0
-  player: {fileID: 0}
-  speed: 5
+  visionColor: {r: 1, g: 0, b: 0, a: 0.105882354}
 --- !u!114 &2491498094433144625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1393,7 +1385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  player: {fileID: 0}
+  lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2491498094433144626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1407,7 +1399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  player: {fileID: 0}
+  lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2491498094433144627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1420,29 +1412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63c4eee473ae3248bafcb74a9fb5ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angle: {x: 0, y: 0, z: 0, w: 0}
-  cronometro: 0
-  player: {fileID: 0}
   speed: 5
---- !u!114 &2491498094433144633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2491498094433144608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5872f6ca1993d94ca4bee408fbae0e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visionAngle: 50
-  maxVisionDistance: 50
-  mask:
-    serializedVersion: 2
-    m_Bits: 0
-  visionColor: {r: 0, g: 0, b: 0, a: 0}
-  player: {fileID: 0}
+  lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &6618316818036427345
 PrefabInstance:
   m_ObjectHideFlags: 0

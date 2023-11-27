@@ -63,7 +63,6 @@
     <Compile Include="Assets\Scripts\EnemySimpleFollow.cs" />
     <Compile Include="Assets\Scripts\States\Retrieving.cs" />
     <Compile Include="Assets\Scripts\EnemyFunctions.cs" />
-    <Compile Include="Assets\Scripts\EnemyStateMachine.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\States\Searching.cs" />
     <Compile Include="Assets\Scripts\States\Chasing.cs" />

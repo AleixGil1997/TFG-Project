@@ -1,24 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static EnemyStateMachine;
+using static EnemyFunctions;
 
 public class Chasing : MonoBehaviour
 {
     public float speed = 5.0f;
-    private Vector3 lastKnownPlayerPosition; // Última posición conocida del jugador
 
-    private EnemyFunctions inst;
+    [HideInInspector] public Vector3 lastKnownPlayerPosition; // Última posición conocida del jugador
 
-    public Transform player; // Referencia al jugador
-
+    EnemyFunctions inst;
+    Transform player; // Referencia al jugador
     Retrieving retrieving;
 
     // Start is called before the first frame update
     void Start()
     {
-        inst = new EnemyFunctions();
-        retrieving.GetComponent<Retrieving>();
+        inst = GetComponent<EnemyFunctions>();
+        retrieving = GetComponent<Retrieving>();
+        player = GameObject.Find("Player").transform;
     }
 
     // Update is called once per frame
@@ -38,6 +38,7 @@ public class Chasing : MonoBehaviour
         }
         else
         {
+            retrieving.lastKnownPlayerPosition = lastKnownPlayerPosition;
             retrieving.enabled = true;
             enabled = false;
         }

@@ -1,27 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-using static EnemyStateMachine;
+using static EnemyFunctions;
+using static UnityEngine.GraphicsBuffer;
 
 public class Searching : MonoBehaviour
 {
-    public Quaternion angle;
-    public float cronometro;
-
-    private EnemyFunctions inst;
-
-    public Transform player; // Referencia al jugador
+    Quaternion angle;
+    float cronometro;
     public float speed = 5.0f;
-    private Vector3 lastKnownPlayerPosition; // Última posición conocida del jugador
 
+    [HideInInspector] public Vector3 lastKnownPlayerPosition; // Última posición conocida del jugador
+
+    EnemyFunctions inst;
+    Transform player; // Referencia al jugador
     Chasing chasing;
-    bool chasingBool;
 
     // Start is called before the first frame update
     void Start()
     {
         inst = GetComponent<EnemyFunctions>();
         chasing = GetComponent<Chasing>();
+        player = GameObject.Find("Player").transform;
     }
 
     // Update is called once per frame
@@ -30,6 +31,7 @@ public class Searching : MonoBehaviour
         if (inst.PlayerDetected(transform))
         {
             lastKnownPlayerPosition = player.position;
+            chasing.lastKnownPlayerPosition = lastKnownPlayerPosition;
             chasing.enabled = true;
             enabled = false;
         }
@@ -43,6 +45,13 @@ public class Searching : MonoBehaviour
             }
             transform.rotation = Quaternion.RotateTowards(transform.rotation, angle, 0.5f);
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 1f))
+            {
+                transform.rotation = Quaternion.Euler(0, 90, 0);
+                cronometro = 0;
+            }
         }
     }
 }
