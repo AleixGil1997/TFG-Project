@@ -43,13 +43,14 @@ public class Searching : MonoBehaviour
                 angle = Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0);
                 cronometro = 0;
             }
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, angle, 0.5f);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, angle, 1f);
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, 1f))
             {
-                transform.rotation = Quaternion.Euler(0, 90, 0);
+                transform.Rotate(Vector3.up, 90f);
+                angle = transform.rotation;
                 cronometro = 0;
             }
         }
