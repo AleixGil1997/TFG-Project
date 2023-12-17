@@ -8,7 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 public class Searching : MonoBehaviour
 {
     Quaternion angle;
-    float cronometro;
+    float cronometro = 0;
     public float speed = 5.0f;
 
     [HideInInspector] public Vector3 lastKnownPlayerPosition; // Última posición conocida del jugador
@@ -23,6 +23,8 @@ public class Searching : MonoBehaviour
         inst = GetComponent<EnemyFunctions>();
         chasing = GetComponent<Chasing>();
         player = GameObject.Find("Player").transform;
+
+        angle = Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0);
     }
 
     // Update is called once per frame

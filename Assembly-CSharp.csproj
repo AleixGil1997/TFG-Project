@@ -61,9 +61,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\EnemySimpleFollow.cs" />
+    <Compile Include="Assets\Scripts\Goap\GoapPlanner.cs" />
+    <Compile Include="Assets\Scripts\Goap\GoapAction.cs" />
     <Compile Include="Assets\Scripts\States\Retrieving.cs" />
+    <Compile Include="Assets\Scripts\Goap\GoapActionHuir.cs" />
+    <Compile Include="Assets\Scripts\GoapHuirAgente.cs" />
     <Compile Include="Assets\Scripts\EnemyFunctions.cs" />
+    <Compile Include="Assets\Scripts\Goap\GoapAgentState.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Goap\GoapState.cs" />
     <Compile Include="Assets\Scripts\States\Searching.cs" />
     <Compile Include="Assets\Scripts\States\Chasing.cs" />
   </ItemGroup>
