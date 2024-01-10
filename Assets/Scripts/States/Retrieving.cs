@@ -14,6 +14,7 @@ public class Retrieving : MonoBehaviour
     Transform player; // Referencia al jugador
     Searching searching;
     Chasing chasing;
+    float cronometro;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,18 @@ public class Retrieving : MonoBehaviour
             chasing.lastKnownPlayerPosition = lastKnownPlayerPosition;
             chasing.enabled = true;
             enabled = false;
+        }
+
+        cronometro += Time.deltaTime;
+        if (cronometro >= 5f)
+        {
+            cronometro = 0f;
+            float tmp = inst.dontGetStuck();
+            if (tmp != 0f)
+            {
+                searching.enabled = true;
+                enabled = false;
+            }
         }
     }
 }

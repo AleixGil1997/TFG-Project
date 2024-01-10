@@ -61,8 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\EnemySimpleFollow.cs" />
+    <Compile Include="Assets\Scripts\StatsCalculator.cs" />
     <Compile Include="Assets\Scripts\Goap\GoapPlanner.cs" />
     <Compile Include="Assets\Scripts\Goap\GoapAction.cs" />
+    <Compile Include="Assets\Scripts\CollisionManager.cs" />
     <Compile Include="Assets\Scripts\States\Retrieving.cs" />
     <Compile Include="Assets\Scripts\Goap\GoapActionHuir.cs" />
     <Compile Include="Assets\Scripts\GoapHuirAgente.cs" />

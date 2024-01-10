@@ -25,7 +25,10 @@ public class Chasing : MonoBehaviour
     void Update()
     {
         Vector3 moveDirection = (lastKnownPlayerPosition - transform.position).normalized;
-        transform.position = Vector3.MoveTowards(transform.position, lastKnownPlayerPosition, speed * Time.deltaTime);
+        if(Vector3.Distance(transform.position, lastKnownPlayerPosition) > 2f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, lastKnownPlayerPosition, speed * Time.deltaTime);
+        }
 
         if (moveDirection != Vector3.zero)
         {

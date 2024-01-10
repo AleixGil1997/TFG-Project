@@ -23,6 +23,7 @@ public class GoapHuirAgente : MonoBehaviour
         currentState = CrearEstadoActual();
         Planificar();
         EjecutarPlan();
+        cronometro += Time.deltaTime;
     }
 
     private GoapAgentState CrearEstadoActual()
@@ -32,7 +33,7 @@ public class GoapHuirAgente : MonoBehaviour
         // Comprueba si el enemigo lo está persiguiendo
         bool enemigoCerca = GameObject.Find("Enemy").GetComponent<Chasing>().enabled;
 
-        estado.Establecer("EnemigoCerca", enemigoCerca); // Ajustar según la lógica de detección
+        estado.Establecer("EnemigoCerca", enemigoCerca);
         return estado;
     }
 
@@ -58,7 +59,7 @@ public class GoapHuirAgente : MonoBehaviour
 
     private IEnumerator EjecutarAccion(GoapAction accion)
     {
-        yield return StartCoroutine(accion.Ejecutar(gameObject));
+        yield return accion.Ejecutar(gameObject);
     }
 
     public float GetCrono()

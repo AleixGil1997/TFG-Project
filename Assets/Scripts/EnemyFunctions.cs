@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System;
+using Unity.VisualScripting;
 
 public class EnemyFunctions : MonoBehaviour
 {
@@ -40,6 +41,24 @@ public class EnemyFunctions : MonoBehaviour
             }
         }
         return ret;
+    }
+
+    public float dontGetStuck()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 2.5f))
+        {
+            return UnityEngine.Random.Range(-1, 1) * 10f;
+        }
+        else if (Physics.Raycast(transform.position, Quaternion.Euler(0, 45f, 0) * transform.forward, out hit, 1.5f))
+        {
+            return -10f;
+        }
+        else if (Physics.Raycast(transform.position, Quaternion.Euler(0, -45f, 0) * transform.forward, out hit, 1.5f))
+        {
+            return 10f;
+        }
+        return 0f;
     }
 }
 

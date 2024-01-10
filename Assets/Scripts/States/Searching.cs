@@ -48,10 +48,10 @@ public class Searching : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, angle, 1f);
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
 
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 1f))
+            float tmp = inst.dontGetStuck();
+            if (tmp != 0f)
             {
-                transform.Rotate(Vector3.up, 90f);
+                transform.Rotate(Vector3.up, tmp);
                 angle = transform.rotation;
                 cronometro = 0;
             }

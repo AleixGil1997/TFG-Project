@@ -33,8 +33,8 @@ public class GoapActionHuir : GoapAction
             // Lógica específica de huida
             Vector3 direccionContraria = agente.transform.position - enemy.transform.position;
 
-            // Continuar huyendo hasta que el script "Chasing" del enemigo esté activo
-            if (enemy.GetComponent<Chasing>() != null && !enemy.GetComponent<Searching>().enabled)
+            // Continuar huyendo hasta que el script "Chasing" del enemigo no esté activo
+            if (!enemy.GetComponent<Searching>().enabled)
             {
                 // Debug.Log(GoapHuirAgente.Instancia.GetCrono());
 
@@ -48,12 +48,19 @@ public class GoapActionHuir : GoapAction
                 agente.transform.Translate(Vector3.forward * Time.deltaTime * speed);
 
                 RaycastHit hit;
-                if (Physics.Raycast(agente.transform.position, agente.transform.forward, out hit, 1f))
+                if (Physics.Raycast(agente.transform.position, Quaternion.Euler(0, 45f, 0) * agente.transform.forward, out hit, 2f))
                 {
-                    agente.transform.Rotate(Vector3.up, 90f);
+                    agente.transform.Rotate(Vector3.up, -5f);
                     GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
                     GoapHuirAgente.Instancia.SetCrono(0);
-                    Debug.Log("Huyendo del enemigo...");
+                    // Debug.Log("Huyendo del enemigo...");
+                }
+                else if (Physics.Raycast(agente.transform.position, Quaternion.Euler(0, -45f, 0) * agente.transform.forward, out hit, 2f))
+                {
+                    agente.transform.Rotate(Vector3.up, 5f);
+                    GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
+                    GoapHuirAgente.Instancia.SetCrono(0);
+                    // Debug.Log("Huyendo del enemigo...");
                 }
 
                 yield return null;
