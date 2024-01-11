@@ -48,21 +48,36 @@ public class GoapActionHuir : GoapAction
                 agente.transform.Translate(Vector3.forward * Time.deltaTime * speed);
 
                 RaycastHit hit;
-                if (Physics.Raycast(agente.transform.position, Quaternion.Euler(0, 45f, 0) * agente.transform.forward, out hit, 2f))
+                if (Physics.Raycast(agente.transform.position, agente.transform.forward, out hit, 3f))
                 {
-                    agente.transform.Rotate(Vector3.up, -5f);
+                    agente.transform.Rotate(Vector3.up, UnityEngine.Random.Range(-1, 1) * 15f);
                     GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
                     GoapHuirAgente.Instancia.SetCrono(0);
-                    // Debug.Log("Huyendo del enemigo...");
                 }
-                else if (Physics.Raycast(agente.transform.position, Quaternion.Euler(0, -45f, 0) * agente.transform.forward, out hit, 2f))
+                else if (Physics.Raycast(agente.transform.position, Quaternion.Euler(0, 45f, 0) * agente.transform.forward, out hit, 1.5f))
                 {
-                    agente.transform.Rotate(Vector3.up, 5f);
+                    agente.transform.Rotate(Vector3.up, -2f);
                     GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
                     GoapHuirAgente.Instancia.SetCrono(0);
-                    // Debug.Log("Huyendo del enemigo...");
                 }
-
+                else if (Physics.Raycast(agente.transform.position, Quaternion.Euler(0, -45f, 0) * agente.transform.forward, out hit, 1.5f))
+                {
+                    agente.transform.Rotate(Vector3.up, 2f);
+                    GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
+                    GoapHuirAgente.Instancia.SetCrono(0);
+                }
+                else if (!Physics.Raycast(agente.transform.position, Quaternion.Euler(0, 45f, 0) * agente.transform.forward, out hit, 5f))
+                {
+                    agente.transform.Rotate(Vector3.up, 2f);
+                    GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
+                    GoapHuirAgente.Instancia.SetCrono(0);
+                }
+                else if (!Physics.Raycast(agente.transform.position, Quaternion.Euler(0, -45f, 0) * agente.transform.forward, out hit, 5f))
+                {
+                    agente.transform.Rotate(Vector3.up, -2f);
+                    GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
+                    GoapHuirAgente.Instancia.SetCrono(0);
+                }
                 yield return null;
             }
 
