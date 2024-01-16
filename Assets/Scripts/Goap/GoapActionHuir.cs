@@ -37,23 +37,58 @@ public class GoapActionHuir : GoapAction
             if (!enemy.GetComponent<Searching>().enabled)
             {
                 // Debug.Log(GoapHuirAgente.Instancia.GetCrono());
-
+                /*
                 GoapHuirAgente.Instancia.SetCrono(GoapHuirAgente.Instancia.GetCrono() + Time.deltaTime);
                 if (GoapHuirAgente.Instancia.GetCrono() >= 2)
                 {
                     GoapHuirAgente.Instancia.SetAngle(Quaternion.Euler(0, UnityEngine.Random.Range(0, 360), 0));
                     GoapHuirAgente.Instancia.SetCrono(0);
                 }
+                */
                 agente.transform.rotation = Quaternion.RotateTowards(agente.transform.rotation, GoapHuirAgente.Instancia.GetAngle(), 1f);
                 agente.transform.Translate(Vector3.forward * Time.deltaTime * speed);
 
-                RaycastHit hit;
-                if (Physics.Raycast(agente.transform.position, agente.transform.forward, out hit, 3f))
+                if (GoapHuirAgente.Instancia.GetCrono() >= 1)
                 {
-                    agente.transform.Rotate(Vector3.up, UnityEngine.Random.Range(-1, 1) * 15f);
+                    GoapHuirAgente.Instancia.SetCrono(0);
+                    GoapHuirAgente.Instancia.SetDirection(Random.Range(0, 2));
+                }
+
+                RaycastHit hit;
+
+                if (Physics.Raycast(agente.transform.position, Quaternion.Euler(0, 45f, 0) * agente.transform.forward, out hit, 7f))
+                {
+                    GoapHuirAgente.Instancia.SetTryLeft(true);
+                    GoapHuirAgente.Instancia.SetCronoLeft(0);
+                }
+                if (Physics.Raycast(agente.transform.position, Quaternion.Euler(0, -45f, 0) * agente.transform.forward, out hit, 7f))
+                {
+                    GoapHuirAgente.Instancia.SetTryRight(true);
+                    GoapHuirAgente.Instancia.SetCronoRight(0);
+                }
+
+                if (GoapHuirAgente.Instancia.GetCronoLeft() >= 1)
+                {
+                    GoapHuirAgente.Instancia.SetTryLeft(false);
+                }
+                if (GoapHuirAgente.Instancia.GetCronoRight() >= 1)
+                {
+                    GoapHuirAgente.Instancia.SetTryRight(false);
+                }
+
+                if (Physics.Raycast(agente.transform.position, Quaternion.Euler(0, 15f, 0) * agente.transform.forward, out hit, 3f))
+                {
+                    agente.transform.Rotate(Vector3.up, -5f);
                     GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
                     GoapHuirAgente.Instancia.SetCrono(0);
                 }
+                else if (Physics.Raycast(agente.transform.position, Quaternion.Euler(0, -15f, 0) * agente.transform.forward, out hit, 3f))
+                {
+                    agente.transform.Rotate(Vector3.up, 5f);
+                    GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
+                    GoapHuirAgente.Instancia.SetCrono(0);
+                }
+
                 else if (Physics.Raycast(agente.transform.position, Quaternion.Euler(0, 45f, 0) * agente.transform.forward, out hit, 1.5f))
                 {
                     agente.transform.Rotate(Vector3.up, -2f);
@@ -66,18 +101,38 @@ public class GoapActionHuir : GoapAction
                     GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
                     GoapHuirAgente.Instancia.SetCrono(0);
                 }
-                else if (!Physics.Raycast(agente.transform.position, Quaternion.Euler(0, 45f, 0) * agente.transform.forward, out hit, 5f))
+
+                else if (GoapHuirAgente.Instancia.GetDirection() == 0)
                 {
-                    agente.transform.Rotate(Vector3.up, 2f);
-                    GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
-                    GoapHuirAgente.Instancia.SetCrono(0);
+                    if (GoapHuirAgente.Instancia.GetTryLeft() && !Physics.Raycast(agente.transform.position, Quaternion.Euler(0, 45f, 0) * agente.transform.forward, out hit, 6f))
+                    {
+                        agente.transform.Rotate(Vector3.up, 2f);
+                        GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
+                        GoapHuirAgente.Instancia.SetCrono(0);
+                    }
+                    else if (GoapHuirAgente.Instancia.GetTryRight() && !Physics.Raycast(agente.transform.position, Quaternion.Euler(0, -45f, 0) * agente.transform.forward, out hit, 6f))
+                    {
+                        agente.transform.Rotate(Vector3.up, -2f);
+                        GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
+                        GoapHuirAgente.Instancia.SetCrono(0);
+                    }
                 }
-                else if (!Physics.Raycast(agente.transform.position, Quaternion.Euler(0, -45f, 0) * agente.transform.forward, out hit, 5f))
+                else if (GoapHuirAgente.Instancia.GetDirection() == 1)
                 {
-                    agente.transform.Rotate(Vector3.up, -2f);
-                    GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
-                    GoapHuirAgente.Instancia.SetCrono(0);
+                    if (GoapHuirAgente.Instancia.GetTryRight() && !Physics.Raycast(agente.transform.position, Quaternion.Euler(0, -45f, 0) * agente.transform.forward, out hit, 6f))
+                    {
+                        agente.transform.Rotate(Vector3.up, -2f);
+                        GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
+                        GoapHuirAgente.Instancia.SetCrono(0);
+                    }
+                    else if (GoapHuirAgente.Instancia.GetTryLeft() && !Physics.Raycast(agente.transform.position, Quaternion.Euler(0, 45f, 0) * agente.transform.forward, out hit, 6f))
+                    {
+                        agente.transform.Rotate(Vector3.up, 2f);
+                        GoapHuirAgente.Instancia.SetAngle(agente.transform.rotation);
+                        GoapHuirAgente.Instancia.SetCrono(0);
+                    }
                 }
+
                 yield return null;
             }
 

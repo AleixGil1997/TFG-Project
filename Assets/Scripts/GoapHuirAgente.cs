@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class GoapHuirAgente : MonoBehaviour
@@ -10,12 +11,21 @@ public class GoapHuirAgente : MonoBehaviour
 
     private static GoapHuirAgente instancia;
     private float cronometro;
+    private float cronoLeft;
+    private float cronoRight;
+    private bool tryLeft;
+    private bool tryRight;
     private Quaternion angle;
+    private int direction;
 
     private void Start()
     {
         planner = new GoapPlanner();
         cronometro = 0;
+        cronoLeft = 0;
+        cronoRight = 0;
+        tryLeft = false;
+        tryRight = false;
     }
 
     private void Update()
@@ -24,6 +34,8 @@ public class GoapHuirAgente : MonoBehaviour
         Planificar();
         EjecutarPlan();
         cronometro += Time.deltaTime;
+        cronoLeft += Time.deltaTime;
+        cronoRight+= Time.deltaTime;
     }
 
     private GoapAgentState CrearEstadoActual()
@@ -72,6 +84,46 @@ public class GoapHuirAgente : MonoBehaviour
         cronometro = crono;
     }
 
+    public float GetCronoLeft()
+    {
+        return cronoLeft;
+    }
+
+    public void SetCronoLeft(float crono)
+    {
+        cronoLeft = crono;
+    }
+
+    public float GetCronoRight()
+    {
+        return cronoRight;
+    }
+
+    public void SetCronoRight(float crono)
+    {
+        cronoRight = crono;
+    }
+
+    public bool GetTryLeft()
+    {
+        return tryLeft;
+    }
+
+    public void SetTryLeft(bool t)
+    {
+        tryLeft = t;
+    }
+
+    public bool GetTryRight()
+    {
+        return tryRight;
+    }
+
+    public void SetTryRight(bool t)
+    {
+        tryRight = t;
+    }
+
     public Quaternion GetAngle()
     {
         return angle;
@@ -80,6 +132,16 @@ public class GoapHuirAgente : MonoBehaviour
     public void SetAngle(Quaternion ang)
     {
         angle = ang;
+    }
+
+    public int GetDirection()
+    {
+        return direction;
+    }
+
+    public void SetDirection(int dir)
+    {
+        direction = dir;
     }
 
     public static GoapHuirAgente Instancia

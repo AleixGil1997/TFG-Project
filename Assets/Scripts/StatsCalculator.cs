@@ -7,6 +7,8 @@ public class StatsCalculator : MonoBehaviour
 {
     private float tiempoTotal;
     private float tiempoConJugadorVisible;
+    private float sumaTotal;
+    private int bucles;
 
     // private int prev;
 
@@ -18,7 +20,8 @@ public class StatsCalculator : MonoBehaviour
         enemy = GameObject.Find("Enemy");
         tiempoTotal = 0f;
         tiempoConJugadorVisible = 0f;
-        // prev = 0;
+        sumaTotal = 0f;
+        bucles = 0;
     }
 
     // Update is called once per frame
@@ -27,14 +30,7 @@ public class StatsCalculator : MonoBehaviour
         tiempoTotal += Time.deltaTime;
         VerificarVisibilidadJugador();
 
-        /*if((int)tiempoTotal % 10 == 0 && (int)tiempoTotal != prev)
-        {
-            Debug.Log(tiempoTotal);
-            Debug.Log(tiempoConJugadorVisible);
-            prev = (int)tiempoTotal;
-        }*/
-
-        if (tiempoTotal >= 120f)
+        if (tiempoTotal >= 60f)
         {
             CalcularPorcentajeTiempo();
             tiempoTotal = 0f;
@@ -52,8 +48,12 @@ public class StatsCalculator : MonoBehaviour
 
     void CalcularPorcentajeTiempo()
     {
+        sumaTotal += tiempoConJugadorVisible;
+        bucles += 1;
         float porcentajeTiempoVisible = (tiempoConJugadorVisible / tiempoTotal) * 100f;
         Debug.Log("Tiempo: " + tiempoTotal);
         Debug.Log("Porcentaje de tiempo con el jugador a la vista: " + porcentajeTiempoVisible + "%");
+        float porcentajeMedio = (sumaTotal / (tiempoTotal * bucles)) * 100f;
+        Debug.Log("Porcentaje de tiempo medio: " + porcentajeMedio + "%");
     }
 }

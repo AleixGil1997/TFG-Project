@@ -7,6 +7,7 @@ using static EnemyFunctions;
 public class Retrieving : MonoBehaviour
 {
     public float speed = 5.0f;
+    bool turnOnly;
 
     [HideInInspector] public Vector3 lastKnownPlayerPosition; // Última posición conocida del jugador
 
@@ -47,11 +48,12 @@ public class Retrieving : MonoBehaviour
         }
 
         cronometro += Time.deltaTime;
-        if (cronometro >= 5f)
+        if (cronometro >= 5)
         {
-            cronometro = 0f;
-            float tmp = inst.dontGetStuck();
-            if (tmp != 0f)
+            cronometro = 0;
+            int x = UnityEngine.Random.Range(0, 2);
+            float tmp = inst.dontGetStuck(x, true, true);
+            if (tmp != 0)
             {
                 searching.enabled = true;
                 enabled = false;

@@ -43,12 +43,16 @@ public class EnemyFunctions : MonoBehaviour
         return ret;
     }
 
-    public float dontGetStuck()
+    public float dontGetStuck(int choose, bool tryLeft, bool tryRight)
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 3f))
+        if (Physics.Raycast(transform.position, Quaternion.Euler(0, 15f, 0) * transform.forward, out hit, 3f))
         {
-            return UnityEngine.Random.Range(-1, 1) * 15f;
+            return -5f;
+        }
+        else if (Physics.Raycast(transform.position, Quaternion.Euler(0, -15f, 0) * transform.forward, out hit, 3f))
+        {
+            return 5f;
         }
         else if (Physics.Raycast(transform.position, Quaternion.Euler(0, 45f, 0) * transform.forward, out hit, 1.5f))
         {
@@ -58,13 +62,28 @@ public class EnemyFunctions : MonoBehaviour
         {
             return 2f;
         }
-        else if (!Physics.Raycast(transform.position, Quaternion.Euler(0, 45f, 0) * transform.forward, out hit, 5f))
+
+        if (choose == 0)
         {
-            return 2f;
+            if (tryLeft && !Physics.Raycast(transform.position, Quaternion.Euler(0, 45f, 0) * transform.forward, out hit, 6f))
+            {
+                return 2f;
+            }
+            else if (tryRight && !Physics.Raycast(transform.position, Quaternion.Euler(0, -45f, 0) * transform.forward, out hit, 6f))
+            {
+                return -2f;
+            }
         }
-        else if (!Physics.Raycast(transform.position, Quaternion.Euler(0, -45f, 0) * transform.forward, out hit, 5f))
+        else if (choose == 1)
         {
-            return -2f;
+            if (tryRight && !Physics.Raycast(transform.position, Quaternion.Euler(0, -45f, 0) * transform.forward, out hit, 6f))
+            {
+                return -2f;
+            }
+            else if (tryLeft && !Physics.Raycast(transform.position, Quaternion.Euler(0, 45f, 0) * transform.forward, out hit, 6f))
+            {
+                return 2f;
+            }
         }
         return 0f;
     }
