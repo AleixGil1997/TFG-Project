@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class CollisionManager : MonoBehaviour
 {
-    public Collider jugadorCollider = GameObject.Find("Player").GetComponent<Collider>();
-    public Collider enemigoCollider = GameObject.Find("Enemy").GetComponent<Collider>();
-
     void Start()
     {
-        Physics.IgnoreCollision(jugadorCollider, enemigoCollider, true);
-    }
+        Collider jugadorCollider = GameObject.Find("Player").GetComponent<Collider>();
+        GameObject[] enemigos = GameObject.FindGameObjectsWithTag("Enemy");
 
-    void Update()
-    {
-        
+        foreach (GameObject enemigo in enemigos)
+        {
+            Collider enemigoCollider = enemigo.GetComponent<Collider>();
+            Physics.IgnoreCollision(jugadorCollider, enemigoCollider, true);
+
+            foreach (GameObject enemy in enemigos)
+            {
+                if (enemy != enemigo)
+                {
+                    Physics.IgnoreCollision(enemy.GetComponent<Collider>(), enemigoCollider, true);
+                }
+            }
+        }
     }
 }

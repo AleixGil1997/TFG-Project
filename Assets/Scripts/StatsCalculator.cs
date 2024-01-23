@@ -10,14 +10,12 @@ public class StatsCalculator : MonoBehaviour
     private float sumaTotal;
     private int bucles;
 
-    // private int prev;
-
-    private GameObject enemy;
+    private GameObject[] enemies;
 
     // Start is called before the first frame update
     void Start()
     {
-        enemy = GameObject.Find("Enemy");
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
         tiempoTotal = 0f;
         tiempoConJugadorVisible = 0f;
         sumaTotal = 0f;
@@ -40,7 +38,18 @@ public class StatsCalculator : MonoBehaviour
 
     void VerificarVisibilidadJugador()
     {
-        if (enemy.GetComponent<Chasing>().enabled)
+        bool isChasing = false;
+
+        foreach (GameObject enemy in enemies)
+        {
+            if (enemy.GetComponent<Chasing>().enabled)
+            {
+                isChasing = true;
+                break;
+            }
+        }
+
+        if (isChasing)
         {
             tiempoConJugadorVisible += Time.deltaTime;
         }

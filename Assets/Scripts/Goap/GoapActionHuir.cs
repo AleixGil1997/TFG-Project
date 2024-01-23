@@ -28,13 +28,23 @@ public class GoapActionHuir : GoapAction
             huyendo = true;
             // Debug.Log("Huyendo del enemigo...");
 
-            GameObject enemy = GameObject.Find("Enemy");
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            bool enemySawPlayer = false;
+
+            foreach (GameObject enemy in enemies)
+            {
+                if (!enemy.GetComponent<Searching>().enabled)
+                {
+                    enemySawPlayer = true;
+                    break;
+                }
+            }
 
             // Lógica específica de huida
-            Vector3 direccionContraria = agente.transform.position - enemy.transform.position;
+            // Vector3 direccionContraria = agente.transform.position - enemy.transform.position;
 
             // Continuar huyendo hasta que el script "Chasing" del enemigo no esté activo
-            if (!enemy.GetComponent<Searching>().enabled)
+            if (enemySawPlayer)
             {
                 // Debug.Log(GoapHuirAgente.Instancia.GetCrono());
                 /*

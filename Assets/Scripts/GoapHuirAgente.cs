@@ -43,9 +43,19 @@ public class GoapHuirAgente : MonoBehaviour
         GoapAgentState estado = new GoapAgentState();
 
         // Comprueba si el enemigo lo está persiguiendo
-        bool enemigoCerca = GameObject.Find("Enemy").GetComponent<Chasing>().enabled;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        bool enemyClose = false;
 
-        estado.Establecer("EnemigoCerca", enemigoCerca);
+        foreach (GameObject enemy in enemies)
+        {
+            if (!enemy.GetComponent<Searching>().enabled)
+            {
+                enemyClose = true;
+                break;
+            }
+        }
+
+        estado.Establecer("EnemigoCerca", enemyClose);
         return estado;
     }
 
