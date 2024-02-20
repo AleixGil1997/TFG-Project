@@ -24,10 +24,13 @@ public class Chasing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 moveDirection = (lastKnownPlayerPosition - transform.position).normalized;
-        if(Vector3.Distance(transform.position, lastKnownPlayerPosition) > 2f)
+        Vector3 moveDirection = (lastKnownPlayerPosition -
+            transform.position).normalized;
+        if(Vector3.Distance(transform.position,
+            lastKnownPlayerPosition) > 2f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, lastKnownPlayerPosition, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position,
+                lastKnownPlayerPosition, speed * Time.deltaTime);
         }
 
         if (moveDirection != Vector3.zero)

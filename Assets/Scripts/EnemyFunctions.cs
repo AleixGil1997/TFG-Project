@@ -9,7 +9,7 @@ using Unity.VisualScripting;
 public class EnemyFunctions : MonoBehaviour
 {
     public float visionAngle = 50;
-    public float maxVisionDistance = 50;
+    public float maxVisionDistance = 10;
 
     public LayerMask mask;
     public Color visionColor;
